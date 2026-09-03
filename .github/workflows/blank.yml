@@ -1,0 +1,41 @@
+name: Generar APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar proyecto
+        uses: actions/checkout@v4
+
+      - name: Preparar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Descomprimir Android.zip
+        run: |
+          unzip -o Android.zip -d proyecto
+
+      - name: Buscar Gradle
+        run: |
+          GRADLE=$(find proyecto -name gradlew -type f | head -n 1)
+          chmod +x "$GRADLE"
+          echo "GRADLE=$GRADLE" >> $GITHUB_ENV
+
+      - name: Compilar APK
+        run: |
+          cd "$(dirname "$GRADLE")"
+          ./gradlew assembleDebug
+
+      - name: Guardar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK-AlertaYPreparados
+          path: "**/build/outputs/apk/**/*.apk"
