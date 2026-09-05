@@ -24,7 +24,9 @@ jobs:
          unzip -o AlertaYPreparados-Android.zip -d proyecto 
       - name: Buscar Gradle
         run: |
-          GRADLE=$(find proyecto -name gradlew -type f | head -n 1)
+         GRADLE=$(find proyecto -name gradlew -type f | head -n 1)
+echo "GRADLE=$GRADLE"
+find proyecto -maxdepth 4 -type f | head -n 100
           chmod +x "$GRADLE"
           echo "GRADLE=$GRADLE" >> $GITHUB_ENV
 
