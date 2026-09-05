@@ -1,6 +1,7 @@
 name: Generar APK
 
-on:
+echo "GRADLE=$GRADLE"
+find proyecto -maxdepth 4 -type f | head -n 100
   workflow_dispatch:
   push:
     branches: ["main"]
