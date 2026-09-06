@@ -22,6 +22,7 @@ jobs:
       - name: Descomprimir Android.zip
         run: |
           unzip -o AlertaYPreparados-Android.zip -d proyecto
+          find proyecto -maxdepth 4 -type f | head -n 100
 
       - name: Buscar Gradle
         run: |
