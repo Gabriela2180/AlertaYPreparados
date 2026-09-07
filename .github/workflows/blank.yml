@@ -1,19 +1,16 @@
-name: Generar APK
+name: Compilar APK Android
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar proyecto
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Preparar Java
+      - name: Configurar Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -22,7 +19,6 @@ jobs:
       - name: Descomprimir Android.zip
         run: |
           unzip -o AlertaYPreparados-Android.zip -d proyecto
-          find proyecto -maxdepth 4 -type f | head -n 100
 
       - name: Buscar Gradle
         run: |
