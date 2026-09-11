@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prevención — Prototipo</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#18212b}.app{max-width:430px;margin:auto;min-height:100vh;background:white}.top{padding:22px 20px 12px;text-align:center}.top h1{margin:0;font-size:28px}.top p{margin:7px 0;color:#667}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px}.card{border:0;border-radius:18px;padding:20px 12px;min-height:110px;background:#eef3f7;font-size:17px;font-weight:700;cursor:pointer}.em{grid-column:1/-1;background:#fff0f0;font-size:21px}.screen{display:none;padding:20px}.screen.active{display:block}.back{border:0;background:none;font-size:16px;padding:4px 0 18px;cursor:pointer}.item{background:#f3f5f7;border-radius:14px;padding:15px;margin:10px 0;cursor:pointer}.notice{background:#fff7df;border-radius:14px;padding:14px;margin-top:16px;font-size:14px}.footer{text-align:center;color:#777;font-size:12px;padding:18px}
+</style></head>
+<body><div class="app">
+<div id="home" class="screen active"><div class="top"><h1>🛡️ PREVENCIÓN</h1><p>Prepararse también es cuidarse.</p></div><div class="grid">
+<button class="card em" onclick="show('emergencias')">🆘 Estoy en una emergencia</button>
+<button class="card" onclick="show('preparacion')">🎒 Quiero prepararme</button>
+<button class="card" onclick="show('familia')">👨‍👩‍👧 Plan familiar</button>
+<button class="card" onclick="show('animales')">🐾 Señales de la naturaleza</button>
+<button class="card" onclick="show('guias')">📚 Guías de prevención</button>
+<button class="card" onclick="show('mochila')">🎒 Mochila de emergencia</button>
+</div><div class="notice">📵 Las guías esenciales estarán pensadas para poder consultarse sin conexión.</div><div class="footer">Prototipo inicial — contenido a validar</div></div>
+<div id="emergencias" class="screen"><button class="back" onclick="show('home')">← Volver</button><h2>🆘 Emergencias</h2><div class="item">🔥 Incendio</div><div class="item">🌊 Inundación</div><div class="item">🌎 Terremoto</div><div class="item">⚡ Corte de electricidad</div><div class="item">🏠 Accidente doméstico</div><div class="notice">Los números de emergencia se configurarán según el país. Las señales de animales nunca reemplazan las alertas oficiales.</div></div>
+<div id="preparacion" class="screen"><button class="back" onclick="show('home')">← Volver</button><h2>🎒 Preparación</h2><div class="item">Checklist de preparación</div><div class="item">Agua y alimentos</div><div class="item">Documentación importante</div><div class="item">Linterna, radio y baterías</div><div class="item">Plan para mascotas</div></div>
+<div id="familia" class="screen"><button class="back" onclick="show('home')">← Volver</button><h2>👨‍👩‍👧 Plan familiar</h2><div class="item">👥 Contactos importantes</div><div class="item">📍 Punto de encuentro</div><div class="item">🧒 Plan para niños</div><div class="item">🐾 Plan para animales</div></div>
+<div id="animales" class="screen"><button class="back" onclick="show('home')">← Volver</button><h2>🐾 Señales de la naturaleza</h2><p>Observar cambios inusuales puede ayudar a prestar atención al entorno, pero no constituye una predicción.</p><div class="item">🐕 Perros — cambios repentinos de conducta</div><div class="item">🐈 Gatos — inquietud o búsqueda de refugio</div><div class="item">🐦 Aves — bandadas que levantan vuelo de forma repentina o desordenada</div><div class="item">🐎 Otros animales — cambios inusuales del grupo</div><div class="notice">⚠️ Estas señales pueden tener muchas causas. Siempre se deben contrastar con información y alertas oficiales.</div></div>
+<div id="guias" class="screen"><button class="back" onclick="show('home')">← Volver</button><h2>📚 Guías</h2><div class="item">🔥 Qué hacer ante un incendio</div><div class="item">🌊 Qué hacer ante una inundación</div><div class="item">🌎 Qué hacer ante un terremoto</div><div class="item">🏠 Seguridad en el hogar</div></div>
+<div id="mochila" class="screen"><button class="back" onclick="show('home')">← Volver</button><h2>🎒 Mochila de emergencia</h2><div class="item">☐ Agua</div><div class="item">☐ Alimentos no perecederos</div><div class="item">☐ Linterna</div><div class="item">☐ Radio</div><div class="item">☐ Baterías</div><div class="item">☐ Documentación</div><div class="item">☐ Elementos para mascotas</div></div>
+</div><script>function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}</script></body></html>
