@@ -1,0 +1,26 @@
+#!/bin/sh
+# Text-only Gradle launcher. The standard Gradle wrapper JAR is intentionally
+# not committed because this repository must not contain binary files.
+set -eu
+
+APP_HOME=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+PROPERTIES_FILE="$APP_HOME/gradle/wrapper/gradle-wrapper.properties"
+DIST_URL=$(sed -n 's/^distributionUrl=//p' "$PROPERTIES_FILE")
+DIST_URL=$(printf '%s' "$DIST_URL" | sed 's/\\\:/:/g')
+DIST_FILE=${DIST_URL##*/}
+DIST_NAME=${DIST_FILE%.zip}
+GRADLE_USER_HOME=${GRADLE_USER_HOME:-"$HOME/.gradle"}
+DIST_DIR="$GRADLE_USER_HOME/wrapper/dists/$DIST_NAME"
+GRADLE_HOME="$DIST_DIR/$DIST_NAME"
+
+if [ ! -x "$GRADLE_HOME/bin/gradle" ]; then
+    TEMP_DIR=$(mktemp -d)
+    trap 'rm -rf "$TEMP_DIR"' EXIT HUP INT TERM
+    mkdir -p "$DIST_DIR"
+    curl --fail --location --retry 3 --output "$TEMP_DIR/$DIST_FILE" "$DIST_URL"
+    unzip -q "$TEMP_DIR/$DIST_FILE" -d "$TEMP_DIR"
+    rm -rf "$GRADLE_HOME"
+    mv "$TEMP_DIR/$DIST_NAME" "$GRADLE_HOME"
+fi
+
+exec "$GRADLE_HOME/bin/gradle" -p "$APP_HOME" "$@"
