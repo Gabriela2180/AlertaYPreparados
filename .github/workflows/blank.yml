@@ -1,6 +1,9 @@
 name: Compilar APK Android
 
 on:
+  push:
+    branches: ["**"]
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -16,23 +19,20 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Descomprimir Android.zip
-        run: |
-          unzip -o AlertaYPreparados-Android.zip -d proyecto
+      - name: Configurar Android SDK 35
+        uses: android-actions/setup-android@v3
 
-      - name: Buscar Gradle
+      - name: Instalar componentes del Android SDK
         run: |
-          GRADLE=$(find proyecto -name gradlew -type f | head -n 1)
-          chmod +x "$GRADLE"
-          echo "GRADLE=$GRADLE" >> $GITHUB_ENV
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
       - name: Compilar APK
-        run: |
-          cd "$(dirname "$GRADLE")"
-          ./gradlew assembleDebug
+        working-directory: AlertaYPreparados-Android
+        run: ./gradlew --no-daemon assembleDebug
 
       - name: Guardar APK
         uses: actions/upload-artifact@v4
         with:
           name: APK-AlertaYPreparados
-          path: "**/build/outputs/apk/**/*.apk"
+          path: AlertaYPreparados-Android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
